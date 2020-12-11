@@ -12,7 +12,7 @@
 <div class="header">
     <a href="http://localhost/todo/" class="logo">To Do List</a>
     <div class="header-right">
-        <a class="active" href="#">Add</a>
+        <a class="active" href="add.php">Add</a>
     </div>
 </div>
 
