@@ -56,16 +56,18 @@ include('templates/header.php');
 </style>
 <link rel="stylesheet" href="style.css">
 
-<form action="add.php" method="POST">
-    <label>Username: </label></br>
-    <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>"></br>
-    <div> <?php echo $errors['username'];  ?></div></br>
-    <label>Task: </label></br>
-    <input type="text" name="todo" value="<?php echo htmlspecialchars($todo); ?>"></br>
-    <div> <?php echo $errors['todo'];  ?></div></br>
-    <input type="submit" name="submit" value="Submit">
-    <input type="reset" name="Cancel" value="Cancel">
-</form>
+<div class="inputform">
+    <form action="add.php" method="POST">
+        <label>Username: </label></br>
+        <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>"></br>
+        <div> <?php echo $errors['username'];  ?></div></br>
+        <label>Task: </label></br>
+        <textarea type="text" class="todo" name="todo" value="<?php echo htmlspecialchars($todo); ?>"></textarea></br>
+        <div> <?php echo $errors['todo'];  ?></div></br>
+        <input type="submit" name="submit" value="Submit">
+        <input type="reset" name="Cancel" value="Cancel">
+    </form>
+</div>
 
 </html>
 

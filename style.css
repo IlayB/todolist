@@ -11,3 +11,13 @@ table {
   width: 900px;
   margin-top: 10px;
 }
+
+form {
+  text-align: center;
+}
+
+.todo {
+  padding-bottom: 100px;
+  border-radius: 10px;
+  border: 1px;
+}
