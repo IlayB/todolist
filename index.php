@@ -68,16 +68,10 @@ if (isset($logedID)) {
         if ($checkadmin['admin_status']) {
             $_SESSION['admin_status'] = true;
         }
-        exit();
     }
 }
 if (!isset($logedID)) {
     echo "<h1 align='center'> Welcome to <a style='color:red'>To Do List</a> </br> Please Log In </h1>";
 }
-?>
-
-
-
-<?php
 include('templates/footer.php');
 ?>
