@@ -8,7 +8,6 @@ table {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 900px;
   margin-top: 10px;
 }
 
@@ -20,4 +19,8 @@ form {
   padding-bottom: 100px;
   border-radius: 10px;
   border: 1px;
+}
+
+.todohead {
+  width: 80%;
 }

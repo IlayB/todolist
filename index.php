@@ -11,43 +11,61 @@ include('templates/header.php');
 <?php
 include('config/db_connect.php');
 
-// -write query for all pizzas
-$sql = 'SELECT * FROM users';
+if (isset($_SESSION['user_id'])) {
 
-//make query & get result
-$result = mysqli_query($conn, $sql);
+    $logedID = $_SESSION['user_id'];
 
-//fetch the resulting rows as array
-$todo = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    // -write query for all pizzas
+    $sql = "SELECT * FROM todo WHERE user_id = ('$logedID');";
 
-//free result from memory
-mysqli_free_result($result);
+    //make query & get result
+    $result = mysqli_query($conn, $sql);
 
-//close connection
-mysqli_close($conn);
+    //fetch the resulting rows as array
+    $todo = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    //free result from memory
+    mysqli_free_result($result);
+
+    //close connection
+    mysqli_close($conn);
+}
+
 ?>
-<table border="1">
-    <tr>
-        <td style="color:red;">
-            User:
-        </td>
-        <td style="color:red;">
-            Todo:
-        </td>
-    </tr>
-    <?php
-    foreach ($todo as $record) {
-    ?>
+
+<?php
+
+if (isset($logedID)) {
+?>
+    <table border="1">
         <tr>
-            <td>
-                <?php echo $record['username']; ?>
+            <td class="todohead" style="color:red;">
+                Todo:
             </td>
-            <td>
-                <?php echo $record['todo']; ?>
+            <td style="color:red;">
+                Created at:
             </td>
         </tr>
-    <?php } ?>
-</table>
+        <?php
+        foreach ($todo as $record) {
+        ?>
+            <tr>
+                <td>
+                    <?php echo $record['todo']; ?>
+                </td>
+                <td class="date">
+                    <?php echo $record['created_at']; ?>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+<?php
+} else {
+    echo "<h1 align='center'> Welcome to <a style='color:red'>To Do List</a> </br> Please Log In </h1>";
+}
+?>
+
+
 
 <?php
 include('templates/footer.php');
