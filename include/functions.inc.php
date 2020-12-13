@@ -111,6 +111,7 @@ function loginUSer($conn, $login, $password)
         session_start();
         $_SESSION["user_id"] = $userExists["user_id"];
         $_SESSION["username"] = $userExists["login"];
+        $_SESSION["admin_status"] = $userExists["admin_status"];
         header("location: ../index.php");
         exit();
     }

@@ -15,7 +15,11 @@
     <div class="header-right">
         <?php
         if (isset($_SESSION["user_id"])) {
-        ?>
+            if ($_SESSION["admin_status"] == true) { ?>
+                <a href="admin.php">All Tasks</a>
+            <?php
+            }
+            ?>
             <a class="active" href="add.php">Add</a>
             <a href="include/logout.inc.php">Logout</a>
         <?php

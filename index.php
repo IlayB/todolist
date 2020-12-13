@@ -15,8 +15,12 @@ if (isset($_SESSION['user_id'])) {
 
     $logedID = $_SESSION['user_id'];
 
-    // -write query for all pizzas
-    $sql = "SELECT * FROM todo WHERE user_id = ('$logedID');";
+    // $admin = $_SESSION['created_at'];
+    // echo $admin;
+
+
+    // -write query for all users
+    $sql = "SELECT * FROM (SELECT todo.todo_id, todo.user_id, todo.todo, todo.created_at, users.admin_status FROM todo LEFT JOIN users ON users.user_id = todo.user_id) AS viewusers WHERE viewusers.user_id LIKE '$logedID';";
 
     //make query & get result
     $result = mysqli_query($conn, $sql);
@@ -60,7 +64,14 @@ if (isset($logedID)) {
         <?php } ?>
     </table>
 <?php
-} else {
+    foreach ($todo as $checkadmin) {
+        if ($checkadmin['admin_status']) {
+            $_SESSION['admin_status'] = true;
+        }
+        exit();
+    }
+}
+if (!isset($logedID)) {
     echo "<h1 align='center'> Welcome to <a style='color:red'>To Do List</a> </br> Please Log In </h1>";
 }
 ?>
