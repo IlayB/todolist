@@ -64,7 +64,6 @@ if (isset($logedID)) {
                         </td>
                         <td align="center">
                             <input type="checkbox" name="todoid[]" class="checkbox" value="<?php echo $record['todo_id']; ?>">
-                            <?php echo $record['todo_id']; ?>
                         </td>
                     </tr>
             <?php }
