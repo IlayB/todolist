@@ -24,3 +24,13 @@ form {
 .todohead {
   width: 80%;
 }
+
+input.checkbox {
+  width: 25px;
+  height: 25px;
+}
+
+.checked {
+  text-decoration: line-through rgb(255, 0, 0);
+  text-decoration-thickness: 0.25em;
+}

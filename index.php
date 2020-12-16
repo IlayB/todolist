@@ -5,6 +5,7 @@
 
 <?php
 include('templates/header.php');
+$x = 0;
 ?>
 
 
@@ -15,12 +16,8 @@ if (isset($_SESSION['user_id'])) {
 
     $logedID = $_SESSION['user_id'];
 
-    // $admin = $_SESSION['created_at'];
-    // echo $admin;
-
-
     // -write query for all users
-    $sql = "SELECT * FROM (SELECT todo.todo_id, todo.user_id, todo.todo, todo.created_at, users.admin_status FROM todo LEFT JOIN users ON users.user_id = todo.user_id) AS viewusers WHERE viewusers.user_id LIKE '$logedID';";
+    $sql = "SELECT * FROM (SELECT todo.todo_id, todo.user_id, todo.todo, todo.created_at, todo.complete_status, users.admin_status FROM todo LEFT JOIN users ON users.user_id = todo.user_id) AS viewusers WHERE viewusers.user_id LIKE '$logedID';";
 
     //make query & get result
     $result = mysqli_query($conn, $sql);
@@ -41,28 +38,49 @@ if (isset($_SESSION['user_id'])) {
 
 if (isset($logedID)) {
 ?>
-    <table border="1">
-        <tr>
-            <td class="todohead" style="color:red;">
-                Todo:
-            </td>
-            <td style="color:red;">
-                Created at:
-            </td>
-        </tr>
-        <?php
-        foreach ($todo as $record) {
-        ?>
+    <form action="exclude/excluderecord.php" method="POST">
+        <table border="1">
             <tr>
-                <td>
-                    <?php echo $record['todo']; ?>
+                <td class="todohead" style="color:red;">
+                    Todo:
                 </td>
-                <td class="date">
-                    <?php echo $record['created_at']; ?>
+                <td style="color:red;">
+                    Updated at:
+                </td>
+                <td style="color:red;">
+                    Complete:
                 </td>
             </tr>
-        <?php } ?>
-    </table>
+            <?php
+            foreach ($todo as $record) {
+                if (!$record['complete_status']) {
+            ?>
+                    <tr>
+                        <td class="content">
+                            <?php echo $record['todo']; ?>
+                        </td>
+                        <td class="date">
+                            <?php echo $record['created_at']; ?>
+                        </td>
+                        <td align="center">
+                            <input type="checkbox" name="todoid[]" class="checkbox" value="<?php echo $record['todo_id']; ?>">
+                            <?php echo $record['todo_id']; ?>
+                        </td>
+                    </tr>
+            <?php }
+            } ?>
+            <script>
+                const list = document.getElementsByClassName('checkbox');
+                const todoList = document.getElementsByClassName('content')
+                for (let i = 0; i < list.length; i++) {
+                    list[i].addEventListener('click', function(ev) {
+                        todoList[i].classList.toggle('checked')
+                    }, false);
+                }
+            </script>
+        </table>
+        <input type="submit" name="submit" value="Delete">
+    </form>
 <?php
     foreach ($todo as $checkadmin) {
         if ($checkadmin['admin_status']) {
